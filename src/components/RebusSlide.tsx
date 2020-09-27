@@ -35,9 +35,7 @@ const RebusSlide: React.FC<{ image: string; title: string }> = (props) => {
           <IonCol size="12" sizeSm="9" sizeMd="7" sizeLg="6" sizeXl="5">
             <IonRow className="ion-justify-content-center">
               <IonCol>
-                <IonItem>
-                  <IonImg src={props.image} />
-                </IonItem>
+                <IonImg src={props.image} />
               </IonCol>
             </IonRow>
             <IonRow className="ion-justify-content-center">

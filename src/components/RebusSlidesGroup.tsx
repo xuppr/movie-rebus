@@ -13,24 +13,36 @@ const slideOpts = {
 
 const RebusSlidesGroup: React.FC = () => (
   <IonSlides pager={false} options={slideOpts}>
-    <RebusSlide image={"/assets/rebus-images/rebus2.png"} title="robin hood" />
-    <RebusSlide image={"/assets/rebus-images/rebus3.png"} title="ghost" />
     <RebusSlide
-      image={"/assets/rebus-images/rebus4.png"}
+      image={"/assets/rebus-images/rebus2-reduced.png"}
+      title="robin hood"
+    />
+    <RebusSlide
+      image={"/assets/rebus-images/rebus3-reduced.png"}
+      title="ghost"
+    />
+    <RebusSlide
+      image={"/assets/rebus-images/rebus4-reduced.png"}
       title="the lion king"
     />
-    <RebusSlide image={"/assets/rebus-images/rebus5.png"} title="braveheart" />
     <RebusSlide
-      image={"/assets/rebus-images/rebus9.png"}
+      image={"/assets/rebus-images/rebus5-reduced.png"}
+      title="braveheart"
+    />
+    <RebusSlide
+      image={"/assets/rebus-images/rebus9-reduced.png"}
       title="the blair witch project"
     />
     <RebusSlide
-      image={"/assets/rebus-images/rebus11.png"}
+      image={"/assets/rebus-images/rebus11-reduced.png"}
       title="saturday night fever"
     />
-    <RebusSlide image={"/assets/rebus-images/rebus12.png"} title="hook" />
     <RebusSlide
-      image={"/assets/rebus-images/rebusscnd1.png"}
+      image={"/assets/rebus-images/rebus12-reduced.png"}
+      title="hook"
+    />
+    <RebusSlide
+      image={"/assets/rebus-images/rebusscnd1-reduced.png"}
       title="fifty shades of grey"
     />
   </IonSlides>
