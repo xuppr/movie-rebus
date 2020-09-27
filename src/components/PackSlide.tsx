@@ -33,7 +33,7 @@ const PackSlide: React.FC<{ packName: string }> = (props) => {
         </IonGrid>
       </div>
       <div style={{ display: "flex", height: "100%" }}>
-        <IonGrid style={{ marginTop: "25%" }}>
+        <IonGrid style={{ marginTop: "15%" }}>
           <IonRow className="ion-justify-content-center">
             <IonCol sizeXs="4">
               <LeveCard level="level 1" active={true} />
