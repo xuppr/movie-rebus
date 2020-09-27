@@ -1,20 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   IonSlide,
   IonGrid,
   IonRow,
   IonCol,
   IonItem,
-  IonLabel,
   IonInput,
   IonImg,
-  IonCard,
   IonButton,
 } from "@ionic/react";
 
 import "./RebusSlide.css";
 
-const RebusSlide: React.FC<{ image: string }> = (props) => {
+const RebusSlide: React.FC<{ image: string; title: string }> = (props) => {
+  const [movieTitleUserInput, setMovieTitleUserInput] = useState<null | string>(
+    null
+  );
+
+  const compareUserInputWithTitle = () => {
+    if (
+      movieTitleUserInput?.toLowerCase().trim().replace(/\s+/g, " ") ===
+      props.title
+    ) {
+      alert("Correct!");
+    } else {
+      alert("Wrong Answer, try again!");
+    }
+  };
+
   return (
     <IonSlide>
       <IonGrid>
@@ -30,8 +43,17 @@ const RebusSlide: React.FC<{ image: string }> = (props) => {
             <IonRow className="ion-justify-content-center">
               <IonCol size="11">
                 <IonItem className="rebus-input-button-item">
-                  <IonInput className="rebus-input" />
-                  <IonButton expand="full" color="secondary">
+                  <IonInput
+                    className="rebus-input"
+                    onIonInput={(input: any) =>
+                      setMovieTitleUserInput(input.target.value)
+                    }
+                  />
+                  <IonButton
+                    expand="full"
+                    color="secondary"
+                    onClick={compareUserInputWithTitle}
+                  >
                     Try
                   </IonButton>
                 </IonItem>
