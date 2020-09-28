@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  IonSlide,
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonItem,
-} from "@ionic/react";
+import { IonSlide, IonGrid, IonRow, IonCol } from "@ionic/react";
 import LeveCard from "./LevelCard";
 import LevelCard from "./LevelCard";
 
@@ -20,12 +11,12 @@ const PackSlide: React.FC<{ packName: string }> = (props) => {
           <IonRow>
             <IonCol>
               <div className="ion-text-center">
-                <h1>Dafault Pack</h1>
-                <p>
+                <h1>Default Pack</h1>
+                <p style={{ fontSize: "0.6rem" }}>
                   This would be the home page. You can swipe to choose from
                   varius pack. From here you can go to level 1 prototype and
                   turn back with the back arrow. All the drawings are placed
-                  together in level 1 for convenience.
+                  together in level 1 for convenience. (db 1)
                 </p>
               </div>
             </IonCol>
@@ -33,7 +24,7 @@ const PackSlide: React.FC<{ packName: string }> = (props) => {
         </IonGrid>
       </div>
       <div style={{ display: "flex", height: "100%" }}>
-        <IonGrid style={{ marginTop: "15%" }}>
+        <IonGrid style={{ marginTop: "5%" }}>
           <IonRow className="ion-justify-content-center">
             <IonCol sizeXs="4">
               <LeveCard level="level 1" active={true} />

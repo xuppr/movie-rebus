@@ -4,9 +4,6 @@ import {
   IonTabBar,
   IonFooter,
   IonToolbar,
-  IonButtons,
-  IonButton,
-  IonIcon,
   IonPage,
 } from "@ionic/react";
 import RebusSlidesGroup from "./RebusSlidesGroup";

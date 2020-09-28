@@ -8,7 +8,8 @@ import "./RebusSlidesGroup.css";
 // See http://idangero.us/swiper/api/ for valid options.
 const slideOpts = {
   initialSlide: 0,
-  speed: 400,
+  speed: 300,
+  preloadImages: true,
 };
 
 const RebusSlidesGroup: React.FC = () => (
