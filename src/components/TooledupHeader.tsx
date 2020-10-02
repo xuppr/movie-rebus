@@ -5,27 +5,34 @@ import {
   IonButtons,
   IonButton,
   IonIcon,
+  IonBackButton,
 } from "@ionic/react";
 import { chevronBack, settingsSharp, helpSharp } from "ionicons/icons";
 
-const TooledupHeader: React.FC<{ backbuttonToHome: boolean }> = (props) => {
+const TooledupHeader: React.FC<{
+  backButton?: boolean;
+  optionsButton?: boolean;
+}> = ({ backButton = true, optionsButton = true }) => {
   return (
     <IonHeader>
       <IonToolbar>
-        {props.backbuttonToHome ? (
+        {backButton ? (
           <IonButtons slot="start">
-            <IonButton routerLink={"/"} routerDirection={"back"}>
-              <IonIcon slot="icon-only" icon={chevronBack} />
-            </IonButton>
+            {/* <IonButton routerLink={"/"} routerDirection={"back"}> */}
+            {/* <IonIcon slot="icon-only" icon={chevronBack} /> */}
+            <IonBackButton defaultHref="/" />
+            {/* </IonButton> */}
           </IonButtons>
         ) : undefined}
         <IonButtons slot="end">
           <IonButton>
             <IonIcon slot="icon-only" icon={helpSharp} />
           </IonButton>
-          <IonButton>
-            <IonIcon slot="icon-only" icon={settingsSharp} />
-          </IonButton>
+          {optionsButton ? (
+            <IonButton routerLink={"/options"}>
+              <IonIcon slot="icon-only" icon={settingsSharp} />
+            </IonButton>
+          ) : undefined}
         </IonButtons>
       </IonToolbar>
     </IonHeader>

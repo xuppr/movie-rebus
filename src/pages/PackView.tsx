@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
-import PackSlidesGroup from "./PackSlidesGroup";
-import TooledupHeader from "./TooledupHeader";
+import PackSlidesGroup from "../components/PackSlidesGroup";
+import TooledupHeader from "../components/TooledupHeader";
 import { IonPage, IonContent } from "@ionic/react";
 
 const PackView = () => {
   return (
     <IonPage>
-      <TooledupHeader backbuttonToHome={false} />
+      <TooledupHeader backButton={false} />
       <IonContent>
         <PackSlidesGroup />
       </IonContent>

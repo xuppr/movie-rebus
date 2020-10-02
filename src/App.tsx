@@ -13,8 +13,8 @@ import {
   IonRouterOutlet,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import RebusView from "./components/RebusView";
-import PackView from "./components/PackView";
+import RebusView from "./pages/RebusView";
+import PackView from "./pages/PackView";
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 
@@ -34,6 +34,8 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import { Route } from "react-router";
+import OptionsView from "./pages/OptionsView";
+import FakePage from "./pages/FakePage";
 
 const App: React.FC = () => (
   <IonApp>
@@ -42,6 +44,8 @@ const App: React.FC = () => (
         {/* modificare paths. passare props per inserimento pack e rebus dinamico */}
         <Route exact path="/" render={() => <PackView />} />
         <Route exact path="/rebusview" render={() => <RebusView />} />
+        <Route path="/options" render={() => <OptionsView />} />
+        <Route path="/fakePage" render={() => <FakePage />} />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
