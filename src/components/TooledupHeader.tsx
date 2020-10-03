@@ -18,10 +18,7 @@ const TooledupHeader: React.FC<{
       <IonToolbar>
         {backButton ? (
           <IonButtons slot="start">
-            {/* <IonButton routerLink={"/"} routerDirection={"back"}> */}
-            {/* <IonIcon slot="icon-only" icon={chevronBack} /> */}
             <IonBackButton defaultHref="/" />
-            {/* </IonButton> */}
           </IonButtons>
         ) : undefined}
         <IonButtons slot="end">
@@ -29,7 +26,7 @@ const TooledupHeader: React.FC<{
             <IonIcon slot="icon-only" icon={helpSharp} />
           </IonButton>
           {optionsButton ? (
-            <IonButton routerLink={"/options"}>
+            <IonButton routerLink={"/userpref"}>
               <IonIcon slot="icon-only" icon={settingsSharp} />
             </IonButton>
           ) : undefined}

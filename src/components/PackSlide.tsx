@@ -4,6 +4,8 @@ import LeveCard from "./LevelCard";
 import LevelCard from "./LevelCard";
 
 const PackSlide: React.FC<{ packName: string }> = (props) => {
+  const levelIconsPath = "/assets/level-icons/";
+
   return (
     <IonSlide style={{ display: "block" }}>
       <div>
@@ -11,13 +13,7 @@ const PackSlide: React.FC<{ packName: string }> = (props) => {
           <IonRow>
             <IonCol>
               <div className="ion-text-center">
-                <h1>Default Pack</h1>
-                <p style={{ fontSize: "0.6rem" }}>
-                  This would be the home page. You can swipe to choose from
-                  varius pack. From here you can go to level 1 prototype and
-                  turn back with the back arrow. All the drawings are placed
-                  together in level 1 for convenience. (db 1)
-                </p>
+                <h1>{props.packName}</h1>
               </div>
             </IonCol>
           </IonRow>
@@ -27,23 +23,43 @@ const PackSlide: React.FC<{ packName: string }> = (props) => {
         <IonGrid style={{ marginTop: "5%" }}>
           <IonRow className="ion-justify-content-center">
             <IonCol sizeXs="4">
-              <LeveCard level="level 1" active={true} />
+              <LeveCard
+                level="level 1"
+                active={true}
+                imgUrl={levelIconsPath + "sofa.svg"}
+              />
             </IonCol>
             <IonCol sizeXs="4">
-              <LeveCard level="level 2" active={false} />
+              <LeveCard
+                level="level 2"
+                active={false}
+                imgUrl={levelIconsPath + "popcorn.svg"}
+              />
             </IonCol>
           </IonRow>
           <IonRow className="ion-justify-content-center">
             <IonCol sizeXs="4">
-              <LevelCard level="level 3" active={false} />
+              <LevelCard
+                level="level 3"
+                active={false}
+                imgUrl={levelIconsPath + "hipster.svg"}
+              />
             </IonCol>
             <IonCol sizeXs="4">
-              <LevelCard level="level 4" active={false} />
+              <LevelCard
+                level="level 4"
+                active={false}
+                imgUrl={levelIconsPath + "clapperboard.svg"}
+              />
             </IonCol>
           </IonRow>
           <IonRow className="ion-justify-content-center">
             <IonCol sizeXs="4">
-              <LeveCard level="level 5" active={false} />
+              <LeveCard
+                level="level 5"
+                active={false}
+                imgUrl={levelIconsPath + "director-chair.svg"}
+              />
             </IonCol>
           </IonRow>
         </IonGrid>

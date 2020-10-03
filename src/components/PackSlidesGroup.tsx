@@ -1,13 +1,11 @@
 import React from "react";
 import {
-  IonContent,
   IonSlides,
   IonSlide,
   IonCard,
   IonCardHeader,
   IonCardTitle,
   IonButton,
-  IonItem,
 } from "@ionic/react";
 import PackSlide from "./PackSlide";
 import "./PackSlidesGroup.css";
@@ -20,8 +18,7 @@ const slideOpts = {
 const PackSlidesGroup = () => {
   return (
     <IonSlides pager={false} options={slideOpts}>
-      <PackSlide packName="pack slide 0" />
-      {/* <PackSlide packName="pack slide 1" /> */}
+      <PackSlide packName="Default Pack" />
       <IonSlide>
         <IonCard className="ion-padding">
           <IonCardHeader>

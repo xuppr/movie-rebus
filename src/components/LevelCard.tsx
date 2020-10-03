@@ -1,21 +1,16 @@
 import React from "react";
-import {
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonItem,
-  IonIcon,
-  IonLabel,
-  IonCardContent,
-} from "@ionic/react";
+import { IonCard, IonCardContent, IonImg } from "@ionic/react";
 
-const LevelCard: React.FC<{ level: string; active: boolean }> = (props) => {
+const LevelCard: React.FC<{
+  level: string;
+  active: boolean;
+  imgUrl: string;
+}> = (props) => {
   return (
     <IonCard button disabled={!props.active} routerLink={"/rebusview"}>
-      <IonCardHeader>
-        <IonCardTitle>{props.level}</IonCardTitle>
-      </IonCardHeader>
-      {/* <IonCardContent>description</IonCardContent> */}
+      <IonImg className="ion-padding" src={props.imgUrl} />
+
+      <IonCardContent>{props.level}</IonCardContent>
     </IonCard>
   );
 };

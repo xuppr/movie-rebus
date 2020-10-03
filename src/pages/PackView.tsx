@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import PackSlidesGroup from "../components/PackSlidesGroup";
 import TooledupHeader from "../components/TooledupHeader";
 import { IonPage, IonContent } from "@ionic/react";

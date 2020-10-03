@@ -1,17 +1,5 @@
-import React from "react";
-import {
-  IonApp,
-  IonContent,
-  IonTabBar,
-  IonGrid,
-  IonRow,
-  IonFooter,
-  IonToolbar,
-  IonButtons,
-  IonButton,
-  IonIcon,
-  IonRouterOutlet,
-} from "@ionic/react";
+import React, { useState } from "react";
+import { IonApp, IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import RebusView from "./pages/RebusView";
 import PackView from "./pages/PackView";
@@ -33,22 +21,42 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+import "./theme/darkModeVariables.css";
+
 import { Route } from "react-router";
-import OptionsView from "./pages/OptionsView";
+import UserPreferencesView from "./pages/UserPreferencesView";
 import FakePage from "./pages/FakePage";
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        {/* modificare paths. passare props per inserimento pack e rebus dinamico */}
-        <Route exact path="/" render={() => <PackView />} />
-        <Route exact path="/rebusview" render={() => <RebusView />} />
-        <Route path="/options" render={() => <OptionsView />} />
-        <Route path="/fakePage" render={() => <FakePage />} />
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+  // * *** USER PREFERENCES ***
+  const [darkMode, setDarkMode] = useState<boolean>(false);
+
+  function toggleDarkMode() {
+    setDarkMode(!darkMode);
+    document.body.classList.toggle("dark");
+  }
+
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <IonRouterOutlet>
+          {/* modificare paths. passare props per inserimento pack e rebus dinamico */}
+          <Route exact path="/" render={() => <PackView />} />
+          <Route exact path="/rebusview" render={() => <RebusView />} />
+          <Route
+            path="/userpref"
+            render={() => (
+              <UserPreferencesView
+                settings={darkMode}
+                toggleDarkMode={toggleDarkMode}
+              />
+            )}
+          />
+          <Route path="/fakePage" render={() => <FakePage />} />
+        </IonRouterOutlet>
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 
 export default App;
