@@ -6,16 +6,19 @@ import {
   IonButton,
   IonIcon,
   IonBackButton,
+  IonTitle,
 } from "@ionic/react";
 import { chevronBack, settingsSharp, helpSharp } from "ionicons/icons";
 
 const TooledupHeader: React.FC<{
   backButton?: boolean;
   optionsButton?: boolean;
-}> = ({ backButton = true, optionsButton = true }) => {
+  title?: string;
+}> = ({ backButton = true, optionsButton = true, title = "" }) => {
   return (
     <IonHeader>
       <IonToolbar>
+        {title ? <IonTitle>{title}</IonTitle> : undefined}
         {backButton ? (
           <IonButtons slot="start">
             <IonBackButton defaultHref="/" />

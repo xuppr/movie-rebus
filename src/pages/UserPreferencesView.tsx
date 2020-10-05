@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   IonPage,
   IonContent,
@@ -9,12 +9,12 @@ import {
 } from "@ionic/react";
 import TooledupHeader from "../components/TooledupHeader";
 
+import { UserPrefsContext } from "../UserPrefsContext";
+
 import { moon } from "ionicons/icons";
 
-const OptionsView: React.FC<{
-  settings: boolean;
-  toggleDarkMode: Function;
-}> = ({ settings, toggleDarkMode }) => {
+const OptionsView: React.FC = () => {
+  const { userPrefs, setUserPrefs } = useContext(UserPrefsContext)!;
   return (
     <IonPage>
       <TooledupHeader optionsButton={false} />
@@ -24,8 +24,10 @@ const OptionsView: React.FC<{
           <IonLabel>Dark Mode</IonLabel>
           <IonToggle
             slot="end"
-            checked={settings}
-            onIonChange={() => toggleDarkMode()}
+            checked={userPrefs.darkMode}
+            onIonChange={() =>
+              setUserPrefs({ ...userPrefs, darkMode: !userPrefs.darkMode })
+            }
           />
         </IonItem>
         {Array(10)

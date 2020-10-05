@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IonApp, IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import RebusView from "./pages/RebusView";
@@ -27,29 +27,41 @@ import { Route } from "react-router";
 import UserPreferencesView from "./pages/UserPreferencesView";
 import FakePage from "./pages/FakePage";
 
+import { UserPrefsContext, UserPrefs } from "./UserPrefsContext";
+
+function toggleDarkMode(darkMode: boolean) {
+  if (darkMode) {
+    document.body.classList.add("dark");
+  } else {
+    document.body.classList.remove("dark");
+  }
+}
+
 const App: React.FC = () => {
   // * *** USER PREFERENCES ***
-  const [darkMode, setDarkMode] = useState<boolean>(false);
+  const [userPrefs, setUserPrefs] = useState<UserPrefs>({ darkMode: false });
 
-  function toggleDarkMode() {
-    setDarkMode(!darkMode);
-    document.body.classList.toggle("dark");
-  }
+  useEffect(() => {
+    toggleDarkMode(userPrefs.darkMode);
+  }, [userPrefs]);
 
   return (
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
-          {/* modificare paths. passare props per inserimento pack e rebus dinamico */}
           <Route exact path="/" render={() => <PackView />} />
-          <Route exact path="/rebusview" render={() => <RebusView />} />
           <Route
+            path="/rebusview/:pack/:level"
+            render={(props) => <RebusView {...props} />}
+          />
+
+          <Route
+            exact
             path="/userpref"
             render={() => (
-              <UserPreferencesView
-                settings={darkMode}
-                toggleDarkMode={toggleDarkMode}
-              />
+              <UserPrefsContext.Provider value={{ userPrefs, setUserPrefs }}>
+                <UserPreferencesView />
+              </UserPrefsContext.Provider>
             )}
           />
           <Route path="/fakePage" render={() => <FakePage />} />

@@ -8,21 +8,33 @@ import {
   IonInput,
   IonImg,
   IonButton,
+  IonLabel,
+  IonCardHeader,
+  IonCardTitle,
 } from "@ionic/react";
 
 import "./RebusSlide.css";
 
-const RebusSlide: React.FC<{ image: string; title: string }> = (props) => {
+const RebusSlide: React.FC<{
+  image: string;
+  title: string;
+  solved: boolean;
+  handleSolved: (title: string) => void;
+}> = (props) => {
   const [movieTitleUserInput, setMovieTitleUserInput] = useState<null | string>(
     null
   );
+
+  const handleButtonClick = () => {
+    compareUserInputWithTitle();
+  };
 
   const compareUserInputWithTitle = () => {
     if (
       movieTitleUserInput?.toLowerCase().trim().replace(/\s+/g, " ") ===
       props.title
     ) {
-      alert("Correct!");
+      props.handleSolved(props.title);
     } else {
       alert("Wrong Answer, try again!");
     }
@@ -40,21 +52,29 @@ const RebusSlide: React.FC<{ image: string; title: string }> = (props) => {
             </IonRow>
             <IonRow className="ion-justify-content-center">
               <IonCol size="11">
-                <IonItem className="rebus-input-button-item">
-                  <IonInput
-                    className="rebus-input"
-                    onIonInput={(input: any) =>
-                      setMovieTitleUserInput(input.target.value)
-                    }
-                  />
-                  <IonButton
-                    expand="full"
-                    color="secondary"
-                    onClick={compareUserInputWithTitle}
-                  >
-                    Try
-                  </IonButton>
-                </IonItem>
+                {props.solved ? (
+                  <IonCardHeader>
+                    <IonCardTitle style={{ color: "green" }}>
+                      {props.title}
+                    </IonCardTitle>
+                  </IonCardHeader>
+                ) : (
+                  <IonItem className="rebus-input-button-item">
+                    <IonInput
+                      className="rebus-input"
+                      onIonInput={(input: any) =>
+                        setMovieTitleUserInput(input.target.value)
+                      }
+                    />
+                    <IonButton
+                      expand="full"
+                      color="secondary"
+                      onClick={handleButtonClick}
+                    >
+                      Try
+                    </IonButton>
+                  </IonItem>
+                )}
               </IonCol>
             </IonRow>
           </IonCol>

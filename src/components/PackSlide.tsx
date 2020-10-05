@@ -24,14 +24,16 @@ const PackSlide: React.FC<{ packName: string }> = (props) => {
           <IonRow className="ion-justify-content-center">
             <IonCol sizeXs="4">
               <LeveCard
-                level="level 1"
+                pack="0"
+                level="1"
                 active={true}
                 imgUrl={levelIconsPath + "sofa.svg"}
               />
             </IonCol>
             <IonCol sizeXs="4">
               <LeveCard
-                level="level 2"
+                pack="0"
+                level="2"
                 active={false}
                 imgUrl={levelIconsPath + "popcorn.svg"}
               />
@@ -40,14 +42,16 @@ const PackSlide: React.FC<{ packName: string }> = (props) => {
           <IonRow className="ion-justify-content-center">
             <IonCol sizeXs="4">
               <LevelCard
-                level="level 3"
+                pack="0"
+                level="3"
                 active={false}
                 imgUrl={levelIconsPath + "hipster.svg"}
               />
             </IonCol>
             <IonCol sizeXs="4">
               <LevelCard
-                level="level 4"
+                pack="0"
+                level="4"
                 active={false}
                 imgUrl={levelIconsPath + "clapperboard.svg"}
               />
@@ -56,7 +60,8 @@ const PackSlide: React.FC<{ packName: string }> = (props) => {
           <IonRow className="ion-justify-content-center">
             <IonCol sizeXs="4">
               <LeveCard
-                level="level 5"
+                pack="0"
+                level="5"
                 active={false}
                 imgUrl={levelIconsPath + "director-chair.svg"}
               />
