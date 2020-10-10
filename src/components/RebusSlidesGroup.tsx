@@ -4,7 +4,7 @@ import RebusSlide from "./RebusSlide";
 
 import { RebusSlidesData } from "../interfaces";
 
-import "./RebusSlidesGroup.css";
+import "../styles/RebusSlidesGroup.css";
 
 // Optional parameters to pass to the swiper instance.
 // See http://idangero.us/swiper/api/ for valid options.

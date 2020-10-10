@@ -1,0 +1,115 @@
+.input-item-removing {
+  animation: inputRemoving 0.5s linear;
+}
+
+@keyframes inputRemoving {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.flex-transition-element {
+  transition: flex 1s;
+}
+
+.hidden-solved-row {
+  flex: 0;
+  overflow: hidden;
+}
+
+.rebus-flex-grid {
+  background-color: red;
+  padding: 5px;
+  display: flex;
+  align-content: space-around;
+}
+
+/** ---------TESTING-------- */
+.test-grid {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-bordered {
+  border: 3px solid black;
+}
+
+/*#### PRIMO LIVELLO #####*/
+
+.flex-transitioned-div {
+  transition: flex 0.5s;
+}
+
+.test-flex-img-div {
+  background-color: red;
+  flex-basis: 70%;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 0;
+}
+
+.test-flex-div-visible {
+  background-color: red;
+  flex-basis: 30%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rebus-flex-hidden {
+  flex: 0;
+}
+
+/* ########## */
+
+.test-flex-lateral {
+  height: 100%;
+  background-color: cyan;
+  flex: 1;
+}
+
+.test-flex-central {
+  height: 100%;
+  flex: 30;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.rebus-img-container {
+  background-color: yellowgreen;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 0;
+}
+
+.rebus-input-container {
+  background-color: rebeccapurple;
+  flex-basis: 20%;
+  flex-grow: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 0;
+}
+
+.rebus-input {
+  font-family: "Courier New", Courier, monospace;
+  width: 70%;
+  height: 4vh;
+  border-radius: 67px;
+  padding-left: 2%;
+  min-height: 0;
+}
+
+/**------------------------- */

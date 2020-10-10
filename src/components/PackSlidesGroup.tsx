@@ -8,7 +8,7 @@ import {
   IonButton,
 } from "@ionic/react";
 import PackSlide from "./PackSlide";
-import "./PackSlidesGroup.css";
+import "../styles/PackSlidesGroup.css";
 
 const slideOpts = {
   initialSlide: 0,

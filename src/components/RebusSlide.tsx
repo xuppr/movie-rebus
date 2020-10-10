@@ -1,19 +1,7 @@
-import React, { useState } from "react";
-import {
-  IonSlide,
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonItem,
-  IonInput,
-  IonImg,
-  IonButton,
-  IonLabel,
-  IonCardHeader,
-  IonCardTitle,
-} from "@ionic/react";
+import React, { useState, useRef } from "react";
+import { IonSlide, IonButton } from "@ionic/react";
 
-import "./RebusSlide.css";
+import "../styles/RebusSlideStyles.css";
 
 const RebusSlide: React.FC<{
   image: string;
@@ -35,51 +23,80 @@ const RebusSlide: React.FC<{
       props.title
     ) {
       props.handleSolved(props.title);
+      hideKeyboardArea();
     } else {
       alert("Wrong Answer, try again!");
     }
   };
 
+  const [keyboardAreaHideClassName, setKeyboardAreaHideClassName] = useState<
+    string
+  >("rebus-flex-hidden");
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  function handleTouchStart(nodeName: string) {
+    if (nodeName === "ION-BUTTON" || nodeName === "INPUT") {
+      return;
+    } else {
+      hideKeyboardArea();
+    }
+  }
+
+  function handleTouchEnd(nodeName: string) {
+    if (nodeName !== "INPUT") {
+      inputRef?.current?.blur();
+    }
+    console.log(nodeName);
+  }
+
+  function hideKeyboardArea() {
+    setKeyboardAreaHideClassName("rebus-flex-hidden");
+  }
+
+  function showKeyboardArea() {
+    setKeyboardAreaHideClassName("");
+  }
+
+  // * ----------------------------
+
   return (
-    <IonSlide>
-      <IonGrid>
-        <IonRow className="ion-justify-content-center">
-          <IonCol size="12" sizeSm="9" sizeMd="7" sizeLg="6" sizeXl="5">
-            <IonRow className="ion-justify-content-center">
-              <IonCol>
-                <IonImg src={props.image} />
-              </IonCol>
-            </IonRow>
-            <IonRow className="ion-justify-content-center">
-              <IonCol size="11">
-                {props.solved ? (
-                  <IonCardHeader>
-                    <IonCardTitle style={{ color: "green" }}>
-                      {props.title}
-                    </IonCardTitle>
-                  </IonCardHeader>
-                ) : (
-                  <IonItem className="rebus-input-button-item">
-                    <IonInput
-                      className="rebus-input"
-                      onIonInput={(input: any) =>
-                        setMovieTitleUserInput(input.target.value)
-                      }
-                    />
-                    <IonButton
-                      expand="full"
-                      color="secondary"
-                      onClick={handleButtonClick}
-                    >
-                      Try
-                    </IonButton>
-                  </IonItem>
-                )}
-              </IonCol>
-            </IonRow>
-          </IonCol>
-        </IonRow>
-      </IonGrid>
+    <IonSlide
+      onTouchEnd={(e: any) => handleTouchEnd(e.target.nodeName!)}
+      onTouchStart={(e: any) => handleTouchStart(e.target.nodeName!)}
+    >
+      <div style={{ height: "100%", width: "100%" }} className="test-grid">
+        <div className="flex-bordered test-flex-img-div flex-transitioned-div">
+          <div className="flex-bordered test-flex-lateral" />
+          <div className="flex-bordered test-flex-central">
+            <div className="rebus-img-container">
+              <img src={props.image} />
+            </div>
+            <div className="rebus-input-container">
+              {props.solved ? (
+                <h3 style={{ color: "greenyellow", fontWeight: "bold" }}>
+                  {props.title.toUpperCase()}
+                </h3>
+              ) : (
+                <>
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    className="rebus-input"
+                    onFocus={showKeyboardArea}
+                    onChange={(e) => setMovieTitleUserInput(e.target.value!)}
+                  />
+                  <IonButton onClick={handleButtonClick}>try</IonButton>
+                </>
+              )}
+            </div>
+          </div>
+          <div className="flex-bordered test-flex-lateral" />
+        </div>
+        <div
+          className={`flex-bordered flex-transitioned-div test-flex-div-visible ${keyboardAreaHideClassName}`}
+        ></div>
+      </div>
     </IonSlide>
   );
 };
