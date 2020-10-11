@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/CharButton';
+import '../styles/CharButton.css';
 
 const CharButton: React.FC<{
     char: string;
