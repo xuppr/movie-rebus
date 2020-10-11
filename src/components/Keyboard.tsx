@@ -11,4 +11,6 @@ const Keyboard: React.FC<{}> = (props) => {
             {keys}
         </div>
     );
-}; 
+};
+
+export default Keyboard;
