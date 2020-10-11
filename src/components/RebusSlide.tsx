@@ -1,13 +1,18 @@
 import React, { useState, useRef } from "react";
 import { IonSlide, IonButton } from "@ionic/react";
+import Keyboard from "./Keyboard";
+import { createSetRebusSolved } from "../RebusContext";
 
 import "../styles/RebusSlideStyles.css";
 
 const RebusSlide: React.FC<{
+  packName: string;
+  level: string;
+  index: number;
   image: string;
   title: string;
   solved: boolean;
-  handleSolved: (title: string) => void;
+  rebusDispatch: (action: any) => void;
 }> = (props) => {
   const [movieTitleUserInput, setMovieTitleUserInput] = useState<null | string>(
     null
@@ -19,10 +24,12 @@ const RebusSlide: React.FC<{
 
   const compareUserInputWithTitle = () => {
     if (
-      movieTitleUserInput?.toLowerCase().trim().replace(/\s+/g, " ") ===
+      movieTitleUserInput?.toUpperCase().trim().replace(/\s+/g, " ") ===
       props.title
     ) {
-      props.handleSolved(props.title);
+      props.rebusDispatch(
+        createSetRebusSolved(props.packName, props.level, props.index)
+      );
       hideKeyboardArea();
     } else {
       alert("Wrong Answer, try again!");
@@ -94,8 +101,10 @@ const RebusSlide: React.FC<{
           <div className="flex-bordered test-flex-lateral" />
         </div>
         <div
-          className={`flex-bordered flex-transitioned-div test-flex-div-visible ${keyboardAreaHideClassName}`}
-        ></div>
+          className={`flex-bordered flex-transitioned-div rebus-flex-div-visible ${keyboardAreaHideClassName}`}
+        >
+          <Keyboard />
+        </div>
       </div>
     </IonSlide>
   );

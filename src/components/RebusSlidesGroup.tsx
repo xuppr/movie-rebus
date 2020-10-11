@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { IonSlides } from "@ionic/react";
 import RebusSlide from "./RebusSlide";
 
 import { RebusSlidesData } from "../interfaces";
 
 import "../styles/RebusSlidesGroup.css";
+import { RebusContext } from "../RebusContext";
 
 // Optional parameters to pass to the swiper instance.
 // See http://idangero.us/swiper/api/ for valid options.
@@ -15,24 +16,23 @@ const slideOpts = {
 };
 
 const RebusSlidesGroup: React.FC<{
-  slidesData: RebusSlidesData;
-  selectedLevel: number;
-  handleSolved: (title: string) => void;
+  selectedPack: string;
+  selectedLevel: string;
 }> = (props) => {
-  const level1 = props.slidesData.levels.level1;
-  const titles = Object.keys(level1);
-
-  const [currentLevel, setCurrentLevel] = useState(props.selectedLevel);
+  const { currentLevel, rebusDispatch } = useContext(RebusContext);
 
   return (
     <IonSlides pager={false} options={slideOpts}>
-      {titles.map((key) => (
+      {currentLevel.map((item: any, index: number) => (
         <RebusSlide
-          key={`rbs${key}`}
-          title={key}
-          image={level1[key].imgUrl}
-          solved={level1[key].solved}
-          handleSolved={props.handleSolved}
+          packName={props.selectedPack}
+          level={props.selectedLevel}
+          index={index}
+          key={`rbs${item.title}`}
+          title={item.title}
+          image={item.imgUrl}
+          solved={item.solved}
+          rebusDispatch={rebusDispatch}
         />
       ))}
     </IonSlides>

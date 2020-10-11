@@ -54,7 +54,7 @@
   min-height: 0;
 }
 
-.test-flex-div-visible {
+.rebus-flex-div-visible {
   background-color: red;
   flex-basis: 30%;
   overflow: hidden;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import { IonApp, IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import RebusView from "./pages/RebusView";
@@ -28,6 +28,11 @@ import UserPreferencesView from "./pages/UserPreferencesView";
 import FakePage from "./pages/FakePage";
 
 import { UserPrefsContext, UserPrefs } from "./UserPrefsContext";
+import {
+  RebusContext,
+  actionTypes as rebusActionTypes,
+  reducer as rebusReducer,
+} from "./RebusContext";
 
 function toggleDarkMode(darkMode: boolean) {
   if (darkMode) {
@@ -38,8 +43,64 @@ function toggleDarkMode(darkMode: boolean) {
 }
 
 const App: React.FC = () => {
-  // * *** USER PREFERENCES ***
+  // * *** USER PREFERENCES STATE***
   const [userPrefs, setUserPrefs] = useState<UserPrefs>({ darkMode: false });
+
+  // * *** REBUS STATE ***
+
+  const rebusInitialState = {
+    "packs": {
+      "default": {
+        "1": [
+          {
+            title: "ROBIN HOOD",
+            imgUrl: "/assets/rebus-images/rebus2-reduced.png",
+            solved: false,
+          },
+          {
+            title: "GHOST",
+            imgUrl: "/assets/rebus-images/rebus3-reduced.png",
+            solved: false,
+          },
+          {
+            title: "THE LION KING",
+            imgUrl: "/assets/rebus-images/rebus4-reduced.png",
+            solved: false,
+          },
+          {
+            title: "BRAVEHEART",
+            imgUrl: "/assets/rebus-images/rebus5-reduced.png",
+            solved: false,
+          },
+          {
+            title: "THE BLAIR WITCH PROJECT",
+            imgUrl: "/assets/rebus-images/rebus9-reduced.png",
+            solved: false,
+          },
+          {
+            title: "SATURDAY NIGHT FEVER",
+            imgUrl: "/assets/rebus-images/rebus11-reduced.png",
+            solved: false,
+          },
+          {
+            title: "HOOK",
+            imgUrl: "/assets/rebus-images/rebus12-reduced.png",
+            solved: false,
+          },
+          {
+            title: "FIFTY SHADES OF GREY",
+            imgUrl: "/assets/rebus-images/rebusscnd1-reduced.png",
+            solved: false,
+          },
+        ],
+      },
+    },
+  };
+
+  const [rebusState, rebusDispatch] = useReducer<any>(
+    rebusReducer,
+    rebusInitialState
+  );
 
   useEffect(() => {
     toggleDarkMode(userPrefs.darkMode);
@@ -52,7 +113,19 @@ const App: React.FC = () => {
           <Route exact path="/" render={() => <PackView />} />
           <Route
             path="/rebusview/:pack/:level"
-            render={(props) => <RebusView {...props} />}
+            render={(props) => {
+              const pack = props.match.params.pack!;
+              const level = props.match.params.level!;
+              const rebusLocalState = (rebusState as any).packs![pack][level];
+
+              return (
+                <RebusContext.Provider
+                  value={{ currentLevel: rebusLocalState, rebusDispatch }}
+                >
+                  <RebusView {...props} />
+                </RebusContext.Provider>
+              );
+            }}
           />
 
           <Route

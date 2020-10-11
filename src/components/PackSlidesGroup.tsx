@@ -18,7 +18,7 @@ const slideOpts = {
 const PackSlidesGroup = () => {
   return (
     <IonSlides pager={false} options={slideOpts}>
-      <PackSlide packName="Default Pack" />
+      <PackSlide packName="default" />
       <IonSlide>
         <IonCard className="ion-padding">
           <IonCardHeader>
