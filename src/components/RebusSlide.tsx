@@ -54,8 +54,13 @@ const RebusSlide: React.FC<{
     if (nodeName !== "INPUT") {
       inputRef?.current?.blur();
     }
-    console.log(nodeName);
   }
+
+  const handleClick = (e: any) => {
+    if (e.target.nodeName === "INPUT") {
+      inputRef.current?.focus();
+    }
+  };
 
   function hideKeyboardArea() {
     setKeyboardAreaHideClassName("rebus-flex-hidden");
@@ -69,6 +74,7 @@ const RebusSlide: React.FC<{
 
   return (
     <IonSlide
+      onClick={(e) => handleClick(e)}
       onTouchEnd={(e: any) => handleTouchEnd(e.target.nodeName!)}
       onTouchStart={(e: any) => handleTouchStart(e.target.nodeName!)}
     >
@@ -92,6 +98,7 @@ const RebusSlide: React.FC<{
                     className="rebus-input"
                     onFocus={showKeyboardArea}
                     onChange={(e) => setMovieTitleUserInput(e.target.value!)}
+                    readOnly
                   />
                   <IonButton onClick={handleButtonClick}>try</IonButton>
                 </>

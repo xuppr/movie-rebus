@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { IonApp, IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
+import { Capacitor, Plugins } from "@capacitor/core";
 import RebusView from "./pages/RebusView";
 import PackView from "./pages/PackView";
 /* Core CSS required for Ionic components to work properly */
@@ -40,6 +41,12 @@ function toggleDarkMode(darkMode: boolean) {
   } else {
     document.body.classList.remove("dark");
   }
+}
+
+const { Keyboard } = Plugins;
+if (Capacitor.isPluginAvailable("Keyboard")) {
+  alert("available");
+  Keyboard.removeAllListeners();
 }
 
 const App: React.FC = () => {
