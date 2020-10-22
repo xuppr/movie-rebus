@@ -8,3 +8,12 @@
     justify-content: center;
     align-items: center;
 }
+
+.char-button-space {
+    grid-column-start: 2;
+    grid-column-end: 10;
+}
+
+.char-button-delete {
+    font-size: 1.9em;
+}
