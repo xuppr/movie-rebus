@@ -14,9 +14,7 @@ const RebusSlide: React.FC<{
   solved: boolean;
   rebusDispatch: (action: any) => void;
 }> = (props) => {
-  const [movieTitleUserInput, setMovieTitleUserInput] = useState<null | string>(
-    null
-  );
+  const [movieTitleUserInput, setMovieTitleUserInput] = useState<string>("");
 
   const handleButtonClick = () => {
     compareUserInputWithTitle();
@@ -71,7 +69,7 @@ const RebusSlide: React.FC<{
   }
 
   function handleKeyboardTouch(key: String) {
-    console.log(key);
+    setMovieTitleUserInput(movieTitleUserInput! + key);
   }
 
   // * ----------------------------
@@ -106,7 +104,7 @@ const RebusSlide: React.FC<{
                     type="text"
                     className="rebus-input"
                     onFocus={showKeyboardArea}
-                    onChange={(e) => setMovieTitleUserInput(e.target.value!)}
+                    value={movieTitleUserInput}
                     readOnly
                   />
                   <IonButton onClick={handleButtonClick}>try</IonButton>
