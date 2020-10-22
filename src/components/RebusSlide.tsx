@@ -42,7 +42,7 @@ const RebusSlide: React.FC<{
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  function handleTouchStart(nodeName: string) {
+  function handleImgContainerTouchStart(nodeName: string) {
     if (nodeName === "ION-BUTTON" || nodeName === "INPUT") {
       return;
     } else {
@@ -50,13 +50,13 @@ const RebusSlide: React.FC<{
     }
   }
 
-  function handleTouchEnd(nodeName: string) {
+  function handleImgContainerTouchEnd(nodeName: string) {
     if (nodeName !== "INPUT") {
       inputRef?.current?.blur();
     }
   }
 
-  const handleClick = (e: any) => {
+  const handleImgContainerClick = (e: any) => {
     if (e.target.nodeName === "INPUT") {
       inputRef.current?.focus();
     }
@@ -70,16 +70,25 @@ const RebusSlide: React.FC<{
     setKeyboardAreaHideClassName("");
   }
 
+  function handleKeyboardTouch(key: String) {
+    console.log(key);
+  }
+
   // * ----------------------------
 
   return (
-    <IonSlide
-      onClick={(e) => handleClick(e)}
-      onTouchEnd={(e: any) => handleTouchEnd(e.target.nodeName!)}
-      onTouchStart={(e: any) => handleTouchStart(e.target.nodeName!)}
-    >
+    <IonSlide>
       <div style={{ height: "100%", width: "100%" }} className="test-grid">
-        <div className="flex-bordered test-flex-img-div flex-transitioned-div">
+        <div
+          onClick={(e) => handleImgContainerClick(e)}
+          onTouchEnd={(e: any) =>
+            handleImgContainerTouchEnd(e.target.nodeName!)
+          }
+          onTouchStart={(e: any) =>
+            handleImgContainerTouchStart(e.target.nodeName!)
+          }
+          className="flex-bordered test-flex-img-div flex-transitioned-div"
+        >
           <div className="flex-bordered test-flex-lateral" />
           <div className="flex-bordered test-flex-central">
             <div className="rebus-img-container">
@@ -110,7 +119,11 @@ const RebusSlide: React.FC<{
         <div
           className={`flex-bordered flex-transitioned-div rebus-flex-div-visible ${keyboardAreaHideClassName}`}
         >
-          <Keyboard />
+          <Keyboard
+            keyTouched={(key) => {
+              handleKeyboardTouch(key);
+            }}
+          />
         </div>
       </div>
     </IonSlide>
