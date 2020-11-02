@@ -19,10 +19,20 @@ const RebusSlidesGroup: React.FC<{
 }> = (props) => {
   const { currentLevel, rebusDispatch } = useContext(RebusContext);
 
+  const pub: any = useRef();
+  const rebusBlur = () => {
+    pub.current!.rebusBlur();
+  };
+
   return (
-    <IonSlides pager={false} options={slideOpts}>
+    <IonSlides
+      pager={false}
+      options={slideOpts}
+      onIonSlideDidChange={rebusBlur}
+    >
       {currentLevel.map((item: any, index: number) => (
         <RebusSlide
+          ref={pub}
           packName={props.selectedPack}
           level={props.selectedLevel}
           index={index}
