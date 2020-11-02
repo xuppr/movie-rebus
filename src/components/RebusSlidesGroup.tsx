@@ -1,8 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { IonSlides } from "@ionic/react";
 import RebusSlide from "./RebusSlide";
-
-import { RebusSlidesData } from "../interfaces";
 
 import "../styles/RebusSlidesGroup.css";
 import { RebusContext } from "../RebusContext";

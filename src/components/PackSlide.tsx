@@ -3,12 +3,16 @@ import { IonSlide, IonGrid, IonRow, IonCol } from "@ionic/react";
 import LeveCard from "./LevelCard";
 import LevelCard from "./LevelCard";
 
-const PackSlide: React.FC<{ packName: string }> = (props) => {
+import "../styles/PackSlideStyle.css";
+
+const PackSlide: React.FC<{ packName: string; unlockedLevels: number }> = (
+  props
+) => {
   const levelIconsPath = "/assets/level-icons/";
 
   return (
     <IonSlide style={{ display: "block" }}>
-      <div>
+      {/* <div>
         <IonGrid>
           <IonRow>
             <IonCol>
@@ -18,57 +22,62 @@ const PackSlide: React.FC<{ packName: string }> = (props) => {
             </IonCol>
           </IonRow>
         </IonGrid>
-      </div>
-      <div style={{ display: "flex", height: "100%" }}>
-        <IonGrid style={{ marginTop: "5%" }}>
-          <IonRow className="ion-justify-content-center">
-            <IonCol sizeXs="4">
-              <LeveCard
-                pack={props.packName}
-                level="1"
-                active={true}
-                imgUrl={levelIconsPath + "sofa.svg"}
-              />
-            </IonCol>
-            <IonCol sizeXs="4">
-              <LeveCard
-                pack={props.packName}
-                level="2"
-                active={false}
-                imgUrl={levelIconsPath + "popcorn.svg"}
-              />
-            </IonCol>
-          </IonRow>
-          <IonRow className="ion-justify-content-center">
-            <IonCol sizeXs="4">
-              <LevelCard
-                pack={props.packName}
-                level="3"
-                active={false}
-                imgUrl={levelIconsPath + "hipster.svg"}
-              />
-            </IonCol>
-            <IonCol sizeXs="4">
-              <LevelCard
-                pack={props.packName}
-                level="4"
-                active={false}
-                imgUrl={levelIconsPath + "clapperboard.svg"}
-              />
-            </IonCol>
-          </IonRow>
-          <IonRow className="ion-justify-content-center">
-            <IonCol sizeXs="4">
-              <LeveCard
-                pack={props.packName}
-                level="5"
-                active={false}
-                imgUrl={levelIconsPath + "director-chair.svg"}
-              />
-            </IonCol>
-          </IonRow>
-        </IonGrid>
-      </div>
+      </div> */}
+      {/* <div style={{ display: "flex", height: "100%" }}> */}
+      <IonGrid className="pack-slide-grid">
+        <IonRow>
+          <IonCol>
+            <h1 className="ion-text-center">{props.packName}</h1>
+          </IonCol>
+        </IonRow>
+        <IonRow className="ion-justify-content-center">
+          <IonCol sizeXs="4">
+            <LeveCard
+              pack={props.packName}
+              level="1"
+              active={true}
+              imgUrl={levelIconsPath + "sofa.svg"}
+            />
+          </IonCol>
+          <IonCol sizeXs="4">
+            <LeveCard
+              pack={props.packName}
+              level="2"
+              active={2 <= props.unlockedLevels}
+              imgUrl={levelIconsPath + "popcorn.svg"}
+            />
+          </IonCol>
+        </IonRow>
+        <IonRow className="ion-justify-content-center">
+          <IonCol sizeXs="4">
+            <LevelCard
+              pack={props.packName}
+              level="3"
+              active={3 <= props.unlockedLevels}
+              imgUrl={levelIconsPath + "hipster.svg"}
+            />
+          </IonCol>
+          <IonCol sizeXs="4">
+            <LevelCard
+              pack={props.packName}
+              level="4"
+              active={4 <= props.unlockedLevels}
+              imgUrl={levelIconsPath + "clapperboard.svg"}
+            />
+          </IonCol>
+        </IonRow>
+        <IonRow className="ion-justify-content-center">
+          <IonCol sizeXs="4">
+            <LeveCard
+              pack={props.packName}
+              level="5"
+              active={5 <= props.unlockedLevels}
+              imgUrl={levelIconsPath + "director-chair.svg"}
+            />
+          </IonCol>
+        </IonRow>
+      </IonGrid>
+      {/* </div> */}
     </IonSlide>
   );
 };

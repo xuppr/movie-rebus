@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { IonApp, IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { Capacitor, Plugins } from "@capacitor/core";
+import { Plugins, Capacitor } from "@capacitor/core";
 import RebusView from "./pages/RebusView";
 import PackView from "./pages/PackView";
 /* Core CSS required for Ionic components to work properly */
@@ -35,6 +35,9 @@ import {
   reducer as rebusReducer,
 } from "./RebusContext";
 
+import { PackStatus } from "./interfaces";
+import { platform } from "os";
+
 function toggleDarkMode(darkMode: boolean) {
   if (darkMode) {
     document.body.classList.add("dark");
@@ -43,10 +46,14 @@ function toggleDarkMode(darkMode: boolean) {
   }
 }
 
-const { Keyboard } = Plugins;
-if (Capacitor.isPluginAvailable("Keyboard")) {
-  alert("available");
-  Keyboard.removeAllListeners();
+function generateInitialSolvedMap() {
+  return {
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+    5: 0,
+  };
 }
 
 const App: React.FC = () => {
@@ -54,10 +61,12 @@ const App: React.FC = () => {
   const [userPrefs, setUserPrefs] = useState<UserPrefs>({ darkMode: false });
 
   // * *** REBUS STATE ***
-
   const rebusInitialState = {
-    "packs": {
+    packs: {
       "default": {
+        status: PackStatus.Available,
+        solvedMap: generateInitialSolvedMap(),
+        unlockedLevels: 1,
         "1": [
           {
             title: "ROBIN HOOD",
@@ -84,6 +93,8 @@ const App: React.FC = () => {
             imgUrl: "/assets/rebus-images/rebus9-reduced.png",
             solved: false,
           },
+        ],
+        "2": [
           {
             title: "SATURDAY NIGHT FEVER",
             imgUrl: "/assets/rebus-images/rebus11-reduced.png",
@@ -99,8 +110,41 @@ const App: React.FC = () => {
             imgUrl: "/assets/rebus-images/rebusscnd1-reduced.png",
             solved: false,
           },
+          {
+            title: "THE FOUR FEATHERS",
+            imgUrl: "/assets/rebus-images/rebus13-reduced.png",
+            solved: false,
+          },
+          {
+            title: "THE SCORPION KING",
+            imgUrl: "/assets/rebus-images/rebus14-reduced.png",
+            solved: false,
+          },
         ],
+        "3": [
+          {
+            title: "12 ANGRY MEN",
+            imgUrl: "/assets/rebus-images/rebus8-reduced.png",
+            solved: false,
+          },
+          {
+            title: "OZ",
+            imgUrl: "/assets/rebus-images/rebusscnd2-reduced.png",
+            solved: false,
+          },
+          {
+            title: "THE WICKER MAN",
+            imgUrl: "/assets/rebus-images/rebusscnd4-reduced.png",
+            solved: false,
+          },
+        ],
+        "4": [],
+        "5": [],
       },
+      "Christmas Pack": { status: PackStatus.NotPurchased },
+      "Love Pack": { status: PackStatus.NotPurchased },
+      "Oscar Pack": { status: PackStatus.NotPurchased },
+      "Tom Cruise Pack": { status: PackStatus.NotPurchased },
     },
   };
 
@@ -117,17 +161,33 @@ const App: React.FC = () => {
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
-          <Route exact path="/" render={() => <PackView />} />
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <RebusContext.Provider
+                value={{ packs: (rebusState as any).packs! }}
+              >
+                <PackView />
+              </RebusContext.Provider>
+            )}
+          />
           <Route
             path="/rebusview/:pack/:level"
             render={(props) => {
               const pack = props.match.params.pack!;
               const level = props.match.params.level!;
+              const unlockedLevels = (rebusState as any).packs![pack]
+                .unlockedLevels;
               const rebusLocalState = (rebusState as any).packs![pack][level];
 
               return (
                 <RebusContext.Provider
-                  value={{ currentLevel: rebusLocalState, rebusDispatch }}
+                  value={{
+                    currentLevel: rebusLocalState,
+                    unlockedLevels,
+                    rebusDispatch,
+                  }}
                 >
                   <RebusView {...props} />
                 </RebusContext.Provider>

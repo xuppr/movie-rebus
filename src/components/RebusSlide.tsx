@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { IonSlide, IonButton } from "@ionic/react";
 import Keyboard from "./Keyboard";
 import { createSetRebusSolved } from "../RebusContext";
@@ -16,6 +16,11 @@ const RebusSlide: React.FC<{
 }> = (props) => {
   const [movieTitleUserInput, setMovieTitleUserInput] = useState<string>("");
 
+  useEffect(() => {
+    let len = movieTitleUserInput.length;
+    inputRef.current?.setSelectionRange(len - 1, len);
+  }, [movieTitleUserInput]);
+
   const handleButtonClick = () => {
     compareUserInputWithTitle();
   };
@@ -30,7 +35,7 @@ const RebusSlide: React.FC<{
       );
       hideKeyboardArea();
     } else {
-      alert("Wrong Answer, try again!");
+      inputRef.current!.classList.add("ahashakeheartache");
     }
   };
 
@@ -39,26 +44,6 @@ const RebusSlide: React.FC<{
   >("rebus-flex-hidden");
 
   const inputRef = useRef<HTMLInputElement>(null);
-
-  function handleImgContainerTouchStart(nodeName: string) {
-    if (nodeName === "ION-BUTTON" || nodeName === "INPUT") {
-      return;
-    } else {
-      hideKeyboardArea();
-    }
-  }
-
-  function handleImgContainerTouchEnd(nodeName: string) {
-    if (nodeName !== "INPUT") {
-      inputRef?.current?.blur();
-    }
-  }
-
-  const handleImgContainerClick = (e: any) => {
-    if (e.target.nodeName === "INPUT") {
-      inputRef.current?.focus();
-    }
-  };
 
   function hideKeyboardArea() {
     setKeyboardAreaHideClassName("rebus-flex-hidden");
@@ -69,7 +54,22 @@ const RebusSlide: React.FC<{
   }
 
   function handleKeyboardTouch(key: String) {
-    setMovieTitleUserInput(movieTitleUserInput! + key);
+    if (key === "⌫") {
+      updateCursor();
+    } else {
+      setMovieTitleUserInput(movieTitleUserInput! + key);
+    }
+    // inputRef.current!.focus();
+  }
+
+  function updateCursor() {
+    setMovieTitleUserInput(
+      movieTitleUserInput.slice(0, movieTitleUserInput.length - 1)
+    );
+  }
+
+  function preventBlur() {
+    inputRef.current!.focus();
   }
 
   // * ----------------------------
@@ -77,16 +77,7 @@ const RebusSlide: React.FC<{
   return (
     <IonSlide>
       <div style={{ height: "100%", width: "100%" }} className="test-grid">
-        <div
-          onClick={(e) => handleImgContainerClick(e)}
-          onTouchEnd={(e: any) =>
-            handleImgContainerTouchEnd(e.target.nodeName!)
-          }
-          onTouchStart={(e: any) =>
-            handleImgContainerTouchStart(e.target.nodeName!)
-          }
-          className="flex-bordered test-flex-img-div flex-transitioned-div"
-        >
+        <div className="flex-bordered test-flex-img-div flex-transitioned-div">
           <div className="flex-bordered test-flex-lateral" />
           <div className="flex-bordered test-flex-central">
             <div className="rebus-img-container">
@@ -100,14 +91,29 @@ const RebusSlide: React.FC<{
               ) : (
                 <>
                   <input
+                    onAnimationEnd={() => {
+                      inputRef.current!.classList.remove("ahashakeheartache");
+                    }}
+                    id="rebus-input-id"
+                    readOnly
                     ref={inputRef}
                     type="text"
                     className="rebus-input"
-                    onFocus={showKeyboardArea}
+                    onFocus={(e) => {
+                      showKeyboardArea();
+                    }}
+                    onBlur={hideKeyboardArea}
                     value={movieTitleUserInput}
-                    readOnly
+                    onChange={updateCursor}
                   />
-                  <IonButton onClick={handleButtonClick}>try</IonButton>
+                  <IonButton
+                    onClick={() => {
+                      preventBlur();
+                      handleButtonClick();
+                    }}
+                  >
+                    try
+                  </IonButton>
                 </>
               )}
             </div>
@@ -115,6 +121,8 @@ const RebusSlide: React.FC<{
           <div className="flex-bordered test-flex-lateral" />
         </div>
         <div
+          onClick={preventBlur}
+          id="rebus-keyboard-id"
           className={`flex-bordered flex-transitioned-div rebus-flex-div-visible ${keyboardAreaHideClassName}`}
         >
           <Keyboard

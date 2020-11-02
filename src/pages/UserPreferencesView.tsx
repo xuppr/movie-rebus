@@ -30,7 +30,7 @@ const OptionsView: React.FC = () => {
             }
           />
         </IonItem>
-        {Array(10)
+        {Array(4)
           .fill(0)
           .map((v, i) => (
             <IonItem

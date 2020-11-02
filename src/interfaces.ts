@@ -14,3 +14,8 @@ export interface MovieSlideInfo {
   imgUrl: string;
   solved: boolean;
 }
+
+export enum PackStatus {
+  Available,
+  NotPurchased,
+}

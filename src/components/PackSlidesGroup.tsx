@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   IonSlides,
   IonSlide,
@@ -8,7 +8,10 @@ import {
   IonButton,
 } from "@ionic/react";
 import PackSlide from "./PackSlide";
+import PackPurchaseSlide from "./PackPurchaseSlide";
 import "../styles/PackSlidesGroup.css";
+import { RebusContext } from "../RebusContext";
+import { PackStatus } from "../interfaces";
 
 const slideOpts = {
   initialSlide: 0,
@@ -16,53 +19,25 @@ const slideOpts = {
 };
 
 const PackSlidesGroup = () => {
+  const { packs } = useContext(RebusContext);
+  const packNames = Object.keys(packs);
+
   return (
     <IonSlides pager={false} options={slideOpts}>
-      <PackSlide packName="default" />
-      <IonSlide>
-        <IonCard className="ion-padding">
-          <IonCardHeader>
-            <IonCardTitle>Christmas Pack</IonCardTitle>
-          </IonCardHeader>
-
-          <IonButton size="large" color="success">
-            Unlock
-          </IonButton>
-        </IonCard>
-      </IonSlide>
-      <IonSlide>
-        <IonCard className="ion-padding">
-          <IonCardHeader>
-            <IonCardTitle>Love Pack</IonCardTitle>
-          </IonCardHeader>
-
-          <IonButton size="large" color="success">
-            Unlock
-          </IonButton>
-        </IonCard>
-      </IonSlide>
-      <IonSlide>
-        <IonCard className="ion-padding">
-          <IonCardHeader>
-            <IonCardTitle>Oscar Pack</IonCardTitle>
-          </IonCardHeader>
-
-          <IonButton size="large" color="success">
-            Unlock
-          </IonButton>
-        </IonCard>
-      </IonSlide>
-      <IonSlide>
-        <IonCard className="ion-padding">
-          <IonCardHeader>
-            <IonCardTitle>Tom Cruise Pack</IonCardTitle>
-          </IonCardHeader>
-
-          <IonButton size="large" color="success">
-            Unlock
-          </IonButton>
-        </IonCard>
-      </IonSlide>
+      {packNames.map((name) => {
+        if (packs[name].status === PackStatus.Available) {
+          const unlocked = packs[name].unlockedLevels;
+          return (
+            <PackSlide
+              unlockedLevels={unlocked}
+              key={name + "id"}
+              packName={name}
+            />
+          );
+        } else {
+          return <PackPurchaseSlide key={name + "id"} packName={name} />;
+        }
+      })}
     </IonSlides>
   );
 };

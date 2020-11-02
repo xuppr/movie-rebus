@@ -42,17 +42,35 @@ function newRebusSolvedState(state: any, action: any) {
       return rebusObj;
     }
   );
-  const newLevelsPack = {
-    ...state.packs[payload.pack],
-    [payload.level]: newLevelArray,
-  };
+  const newSolvedNumber =
+    state.packs[payload.packName].solvedMap[payload.level] + 1;
+
+  let newLevelsPack;
+  if (newSolvedNumber === newLevelArray.length) {
+    newLevelsPack = {
+      ...state.packs[payload.packName],
+      unlockedLevels: state.packs[payload.packName].unlockedLevels + 1,
+      solvedMap: {
+        ...state.packs[payload.packName].solvedMap,
+        [payload.level]: newSolvedNumber,
+      },
+      [payload.level]: newLevelArray,
+    };
+  } else {
+    newLevelsPack = {
+      ...state.packs[payload.packName],
+      solvedMap: {
+        ...state.packs[payload.packName].solvedMap,
+        [payload.level]: newSolvedNumber,
+      },
+      [payload.level]: newLevelArray,
+    };
+  }
 
   const newState = {
     ...state,
     packs: { ...state.packs, [payload.packName]: newLevelsPack },
   };
-
-  console.log(newState);
 
   return newState;
 }

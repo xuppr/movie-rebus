@@ -14,14 +14,13 @@ const LevelCard: React.FC<{
       routerLink={`/rebusview/${props.pack}/${props.level}`}
       className="level-card-icon-container"
     >
-      {/* <IonImg
-        className="ion-padding level-card-icon-container"
-        style={{ fill: "red" }}
-        src={props.imgUrl}
-      /> */}
-      {/* <img src={props.imgUrl} /> */}
       <IonIcon
-        style={{ fill: "var(--ion-color-dark)", height: "15vh", width: "15vw" }}
+        style={{
+          fill: "var(--ion-color-dark)",
+          height: "12vh",
+          width: "12vw",
+          minHeight: 0,
+        }}
         src={props.imgUrl}
       />
       <IonCardContent>{props.level}</IonCardContent>
