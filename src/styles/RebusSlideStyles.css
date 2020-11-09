@@ -309,17 +309,17 @@
     box-shadow 150ms cubic-bezier(0, 0, 0.58, 1),
     -webkit-transform 150ms cubic-bezier(0, 0, 0.58, 1);
 }
-.rebus-button:hover {
+/* .rebus-button:hover {
   background: var(--rebus-button-bkg-color-active);
   -webkit-transform: translate(0, 0.25em);
   transform: translate(0, 0.25em);
-}
-.rebus-button:hover::before {
+} */
+/* .rebus-button:hover::before {
   box-shadow: 0 0 0 2px var(--rebus-button-base-color),
     0 0.5em 0 0 var(--rebus-button-base-color1);
   -webkit-transform: translate3d(0, 0.5em, -1em);
   transform: translate3d(0, 0.5em, -1em);
-}
+} */
 .rebus-button:active {
   background: var(--rebus-button-bkg-color-active);
   -webkit-transform: translate(0em, 0.75em);
