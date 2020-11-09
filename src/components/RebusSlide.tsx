@@ -1,19 +1,10 @@
 import React, { useState, useRef, useEffect, useImperativeHandle } from "react";
-import { IonSlide, IonButton } from "@ionic/react";
+import { IonSlide } from "@ionic/react";
 import Keyboard from "./Keyboard";
 import { createSetRebusSolved } from "../RebusContext";
 
 import "../styles/RebusSlideStyles.css";
 
-// const RebusSlide: React.FC<{
-//   packName: string;
-//   level: string;
-//   index: number;
-//   image: string;
-//   title: string;
-//   solved: boolean;
-//   rebusDispatch: (action: any) => void;
-// }>
 const RebusSlide = React.forwardRef(
   (
     props: {
@@ -28,20 +19,24 @@ const RebusSlide = React.forwardRef(
     ref: any
   ) => {
     const [movieTitleUserInput, setMovieTitleUserInput] = useState<string>("");
+    const [onFocus, setOnFocus] = useState<boolean>(false);
+    const [inputClassName, setInputClassName] = useState<string>("");
+    const [keyboardOpen, setKeyboardOpen] = useState<boolean>(false);
+    const [keyboardAreaHideClassName, setKeyboardAreaHideClassName] = useState<
+      string
+    >("rebus-flex-hidden");
+
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(updateScroll, [movieTitleUserInput]);
 
     const rebusBlur = () => {
-      console.log("exposed blur call");
-      inputRef.current!.blur();
+      setOnFocus(false);
     };
 
     useImperativeHandle(ref, () => ({
       rebusBlur,
     }));
-
-    useEffect(() => {
-      let len = movieTitleUserInput.length;
-      inputRef.current?.setSelectionRange(len - 1, len);
-    }, [movieTitleUserInput]);
 
     const handleButtonClick = () => {
       compareUserInputWithTitle();
@@ -56,16 +51,18 @@ const RebusSlide = React.forwardRef(
           createSetRebusSolved(props.packName, props.level, props.index)
         );
         hideKeyboardArea();
-      } else {
-        inputRef.current!.classList.add("ahashakeheartache");
+      } else if (keyboardOpen) {
+        setInputClassName("ahashakeheartache");
       }
     };
 
-    const [keyboardAreaHideClassName, setKeyboardAreaHideClassName] = useState<
-      string
-    >("rebus-flex-hidden");
-
-    const inputRef = useRef<HTMLInputElement>(null);
+    useEffect(() => {
+      if (onFocus) {
+        showKeyboardArea();
+      } else {
+        hideKeyboardArea();
+      }
+    }, [onFocus]);
 
     function hideKeyboardArea() {
       setKeyboardAreaHideClassName("rebus-flex-hidden");
@@ -75,23 +72,22 @@ const RebusSlide = React.forwardRef(
       setKeyboardAreaHideClassName("");
     }
 
+    function updateScroll() {
+      inputRef.current!.scrollLeft = inputRef.current!.scrollWidth;
+    }
+
     function handleKeyboardTouch(key: String) {
       if (key === "⌫") {
-        updateCursor();
+        setMovieTitleUserInput(
+          movieTitleUserInput.slice(0, movieTitleUserInput.length - 1)
+        );
       } else {
         setMovieTitleUserInput(movieTitleUserInput! + key);
       }
-      // inputRef.current!.focus();
     }
 
-    function updateCursor() {
-      setMovieTitleUserInput(
-        movieTitleUserInput.slice(0, movieTitleUserInput.length - 1)
-      );
-    }
-
-    function preventBlur() {
-      inputRef.current!.focus();
+    function handleGenericAreaTouch() {
+      setOnFocus(!onFocus);
     }
 
     // * ----------------------------
@@ -99,43 +95,47 @@ const RebusSlide = React.forwardRef(
     return (
       <IonSlide>
         <div style={{ height: "100%", width: "100%" }} className="test-grid">
-          <div className="flex-bordered test-flex-img-div flex-transitioned-div">
+          <div
+            onClick={handleGenericAreaTouch}
+            className="flex-bordered test-flex-img-div flex-transitioned-div"
+          >
             <div className="flex-bordered test-flex-lateral" />
             <div className="flex-bordered test-flex-central">
               <div className="rebus-img-container">
                 <img src={props.image} />
               </div>
-              <div className="rebus-input-container">
+              <div
+                onClick={(e) => {
+                  if (!onFocus) {
+                    setOnFocus(true);
+                  }
+                  e.stopPropagation();
+                }}
+                className="rebus-input-container"
+              >
                 {props.solved ? (
                   <h3 style={{ color: "greenyellow", fontWeight: "bold" }}>
                     {props.title.toUpperCase()}
                   </h3>
                 ) : (
                   <>
-                    <input
+                    <div
                       onAnimationEnd={() => {
-                        inputRef.current!.classList.remove("ahashakeheartache");
+                        setInputClassName("");
                       }}
-                      id="rebus-input-id"
-                      readOnly
                       ref={inputRef}
-                      type="text"
-                      className="rebus-input"
-                      onFocus={(e) => {
-                        showKeyboardArea();
-                      }}
-                      onBlur={hideKeyboardArea}
-                      value={movieTitleUserInput}
-                      onChange={updateCursor}
-                    />
-                    <IonButton
-                      onClick={() => {
-                        preventBlur();
-                        handleButtonClick();
-                      }}
+                      className={`rebus-input ${inputClassName}`}
+                    >
+                      <div className="typewriter">
+                        <h3>{movieTitleUserInput}</h3>
+                      </div>
+                    </div>
+                    <button
+                      className="rebus-button"
+                      onClick={handleButtonClick}
                     >
                       try
-                    </IonButton>
+                    </button>
                   </>
                 )}
               </div>
@@ -143,7 +143,9 @@ const RebusSlide = React.forwardRef(
             <div className="flex-bordered test-flex-lateral" />
           </div>
           <div
-            onClick={preventBlur}
+            onTransitionEnd={() => {
+              setKeyboardOpen(onFocus);
+            }}
             id="rebus-keyboard-id"
             className={`flex-bordered flex-transitioned-div rebus-flex-div-visible ${keyboardAreaHideClassName}`}
           >

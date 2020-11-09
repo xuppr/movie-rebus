@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { IonApp, IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { Plugins, Capacitor } from "@capacitor/core";
+import { isPlatform } from "@ionic/react";
+
 import RebusView from "./pages/RebusView";
 import PackView from "./pages/PackView";
 /* Core CSS required for Ionic components to work properly */
@@ -29,21 +30,80 @@ import UserPreferencesView from "./pages/UserPreferencesView";
 import FakePage from "./pages/FakePage";
 
 import { UserPrefsContext, UserPrefs } from "./UserPrefsContext";
-import {
-  RebusContext,
-  actionTypes as rebusActionTypes,
-  reducer as rebusReducer,
-} from "./RebusContext";
+import { RebusContext, reducer as rebusReducer } from "./RebusContext";
 
 import { PackStatus } from "./interfaces";
-import { platform } from "os";
 
 function toggleDarkMode(darkMode: boolean) {
   if (darkMode) {
     document.body.classList.add("dark");
+    rebusButtonDarkMode();
+    rebusInputDarkMode();
   } else {
     document.body.classList.remove("dark");
+    rebusButtonLightMode();
+    rebusInputLightMode();
   }
+}
+
+function rebusInputDarkMode() {
+  document.documentElement.style.setProperty(
+    "--rebus-input-text-color",
+    "white"
+  );
+}
+
+function rebusInputLightMode() {
+  document.documentElement.style.setProperty(
+    "--rebus-input-text-color",
+    "black"
+  );
+}
+
+function rebusButtonDarkMode() {
+  document.documentElement.style.setProperty(
+    "--rebus-button-background-color",
+    "#85a3b1"
+  );
+  document.documentElement.style.setProperty(
+    "--rebus-button-base-color",
+    "#85a3b1"
+  );
+  document.documentElement.style.setProperty(
+    "--rebus-button-base-color1",
+    "#1e2023"
+  );
+  document.documentElement.style.setProperty(
+    "--rebus-button-bkg-color-before",
+    "#000000"
+  );
+  document.documentElement.style.setProperty(
+    "--rebus-button-bkg-color-active",
+    "#f4f5f8"
+  );
+}
+
+function rebusButtonLightMode() {
+  document.documentElement.style.setProperty(
+    "--rebus-button-background-color",
+    "#f5f6f9"
+  );
+  document.documentElement.style.setProperty(
+    "--rebus-button-base-color",
+    "#85a3b1"
+  );
+  document.documentElement.style.setProperty(
+    "--rebus-button-base-color1",
+    "#f4f5f8"
+  );
+  document.documentElement.style.setProperty(
+    "--rebus-button-bkg-color-before",
+    "#c4e4f9"
+  );
+  document.documentElement.style.setProperty(
+    "--rebus-button-bkg-color-active",
+    "#c4e4f9"
+  );
 }
 
 function generateInitialSolvedMap() {
@@ -54,6 +114,9 @@ function generateInitialSolvedMap() {
     4: 0,
     5: 0,
   };
+}
+if (isPlatform("ios") === true || isPlatform("android") === true) {
+  window.screen.orientation.lock("portrait");
 }
 
 const App: React.FC = () => {

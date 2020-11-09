@@ -4,7 +4,6 @@ import RebusSlidesGroup from "../components/RebusSlidesGroup";
 import RebusHintsButtonsGroup from "../components/RebusHintsButtonsGroup";
 import TooledupHeader from "../components/TooledupHeader";
 
-import { RebusSlidesData } from "../interfaces";
 import { RouteComponentProps } from "react-router";
 
 interface RebusViewSelectionInfo

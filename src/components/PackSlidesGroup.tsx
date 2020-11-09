@@ -1,12 +1,5 @@
 import React, { useContext } from "react";
-import {
-  IonSlides,
-  IonSlide,
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonButton,
-} from "@ionic/react";
+import { IonSlides } from "@ionic/react";
 import PackSlide from "./PackSlide";
 import PackPurchaseSlide from "./PackPurchaseSlide";
 import "../styles/PackSlidesGroup.css";
