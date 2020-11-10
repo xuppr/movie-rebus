@@ -152,8 +152,18 @@ const App: React.FC = () => {
             solved: false,
           },
           {
-            title: "THE BLAIR WITCH PROJECT",
-            imgUrl: "/assets/rebus-images/rebus9-reduced.png",
+            title: "THE FOUR FEATHERS",
+            imgUrl: "/assets/rebus-images/rebus13-reduced.png",
+            solved: false,
+          },
+          {
+            title: "THE ISLAND",
+            imgUrl: "/assets/rebus-images/moretrebuss3-reduced.png",
+            solved: false,
+          },
+          {
+            title: "THE CROW",
+            imgUrl: "/assets/rebus-images/skin6-reduced.png",
             solved: false,
           },
         ],
@@ -174,13 +184,23 @@ const App: React.FC = () => {
             solved: false,
           },
           {
-            title: "THE FOUR FEATHERS",
-            imgUrl: "/assets/rebus-images/rebus13-reduced.png",
+            title: "THE BLAIR WITCH PROJECT",
+            imgUrl: "/assets/rebus-images/rebus9-reduced.png",
             solved: false,
           },
           {
             title: "THE SCORPION KING",
             imgUrl: "/assets/rebus-images/rebus14-reduced.png",
+            solved: false,
+          },
+          {
+            title: "INTERVIEW WITH THE VAMPIRE",
+            imgUrl: "/assets/rebus-images/moretrebuss5-reduced.png",
+            solved: false,
+          },
+          {
+            title: "THE GREEN MILE",
+            imgUrl: "/assets/rebus-images/moretrebuss6-reduced.png",
             solved: false,
           },
         ],
@@ -198,6 +218,26 @@ const App: React.FC = () => {
           {
             title: "THE WICKER MAN",
             imgUrl: "/assets/rebus-images/rebusscnd4-reduced.png",
+            solved: false,
+          },
+          {
+            title: "POINT BREAK",
+            imgUrl: "/assets/rebus-images/moretrebuss1-reduced.png",
+            solved: false,
+          },
+          {
+            title: "WHO FRAMED ROGER RABBIT",
+            imgUrl: "/assets/rebus-images/moretrebuss2-reduced.png",
+            solved: false,
+          },
+          {
+            title: "SPACE COWBOYS",
+            imgUrl: "/assets/rebus-images/moretrebuss4-reduced.png",
+            solved: false,
+          },
+          {
+            title: "BURNING MAN",
+            imgUrl: "/assets/rebus-images/skin5-reduced.png",
             solved: false,
           },
         ],

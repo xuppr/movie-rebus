@@ -73,7 +73,9 @@ const RebusSlide = React.forwardRef(
     }
 
     function updateScroll() {
-      inputRef.current!.scrollLeft = inputRef.current!.scrollWidth;
+      if (inputRef.current) {
+        inputRef.current.scrollLeft = inputRef.current.scrollWidth;
+      }
     }
 
     function handleKeyboardTouch(key: String) {
