@@ -211,7 +211,7 @@ const App: React.FC = () => {
             solved: false,
           },
           {
-            title: "OZ",
+            title: "THE WIZARD OF OZ",
             imgUrl: "/assets/rebus-images/rebusscnd2-reduced.png",
             solved: false,
           },
