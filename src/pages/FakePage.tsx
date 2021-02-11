@@ -5,7 +5,7 @@ import TooledupHeader from "../components/TooledupHeader";
 const FakePage = () => {
   return (
     <IonPage>
-      <TooledupHeader />
+      <TooledupHeader optionsButton={false} />
       <IonContent>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, omnis
         ad nihil ducimus earum doloribus. Ad dolores praesentium earum
